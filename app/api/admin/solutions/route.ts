@@ -8,6 +8,10 @@ import { getUserFromToken, getTokenFromRequest } from '@/lib/auth';
 export async function GET(request: NextRequest) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {
@@ -39,6 +43,10 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {

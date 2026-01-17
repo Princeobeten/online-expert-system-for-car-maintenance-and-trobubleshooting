@@ -7,6 +7,10 @@ import { getUserFromToken, getTokenFromRequest } from '@/lib/auth';
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {
@@ -31,6 +35,10 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {
@@ -69,6 +77,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {

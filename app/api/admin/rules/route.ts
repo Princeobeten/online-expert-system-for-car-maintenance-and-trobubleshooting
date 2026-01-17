@@ -9,6 +9,10 @@ import { getUserFromToken, getTokenFromRequest } from '@/lib/auth';
 export async function GET(request: NextRequest) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {
@@ -23,7 +27,7 @@ export async function GET(request: NextRequest) {
       rules.map(async (rule) => {
         const fault = await Fault.findOne({ fault_id: rule.fault_id });
         const symptoms = await Promise.all(
-          rule.symptoms.map(async (symptomId) => {
+          rule.symptoms.map(async (symptomId: string) => {
             const symptom = await Symptom.findOne({ symptom_id: symptomId });
             return symptom ? { symptom_id: symptom.symptom_id, description: symptom.description } : null;
           })
@@ -48,6 +52,10 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const token = getTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    
     const user = getUserFromToken(token);
     
     if (!user || user.role !== 'Admin') {
@@ -70,7 +78,7 @@ export async function POST(request: NextRequest) {
     
     // Verify all symptoms exist
     const symptomChecks = await Promise.all(
-      symptoms.map(symptomId => Symptom.findOne({ symptom_id: symptomId }))
+      symptoms.map((symptomId: string) => Symptom.findOne({ symptom_id: symptomId }))
     );
     
     if (symptomChecks.some(symptom => !symptom)) {
