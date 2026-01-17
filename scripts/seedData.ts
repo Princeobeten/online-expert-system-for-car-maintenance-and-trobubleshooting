@@ -4,7 +4,7 @@ import { resolve } from 'path';
 // Load environment variables from .env.local
 config({ path: resolve(process.cwd(), '.env.local') });
 
-import dbConnect from '../lib/mongodb';
+import { connectToDatabase } from '../lib/mongodb';
 import Symptom from '../models/Symptom';
 import Fault from '../models/Fault';
 import Solution from '../models/Solution';
@@ -136,7 +136,7 @@ const solutions = [
 
 export async function seedDatabase() {
   try {
-    await dbConnect();
+    await connectToDatabase();
     console.log('Connected to database');
 
     // Clear existing data

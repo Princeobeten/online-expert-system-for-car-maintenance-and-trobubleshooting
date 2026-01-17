@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTokenFromRequest, getUserFromToken } from '@/lib/auth';
-import dbConnect from '@/lib/mongodb';
+import { connectToDatabase } from '@/lib/mongodb';
 import Vehicle from '@/models/Vehicle';
 
 export async function GET(request: NextRequest) {
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    await dbConnect();
+    await connectToDatabase();
 
     const vehicles = await Vehicle.find({ user_id: user.userId }).sort({ createdAt: -1 });
 
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    await dbConnect();
+    await connectToDatabase();
 
     const { brand, model, year, engine_type } = await request.json();
 

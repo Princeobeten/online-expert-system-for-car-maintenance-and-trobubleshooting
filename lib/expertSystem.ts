@@ -1,4 +1,4 @@
-import dbConnect from './mongodb';
+import { connectToDatabase } from './mongodb';
 import Rule from '@/models/Rule';
 import Fault from '@/models/Fault';
 import Solution from '@/models/Solution';
@@ -13,7 +13,7 @@ export interface DiagnosisResult {
 
 export class ExpertSystemEngine {
   static async diagnose(selectedSymptoms: string[]): Promise<DiagnosisResult[]> {
-    await dbConnect();
+    await connectToDatabase();
 
     try {
       console.log('Starting diagnosis with symptoms:', selectedSymptoms);
@@ -77,7 +77,7 @@ export class ExpertSystemEngine {
   }
 
   static async getSymptomsByCategory(): Promise<any> {
-    await dbConnect();
+    await connectToDatabase();
     
     try {
       const symptoms = await Symptom.find().sort({ category: 1, description: 1 });
@@ -100,7 +100,7 @@ export class ExpertSystemEngine {
   }
 
   static async getAllSymptoms(): Promise<any[]> {
-    await dbConnect();
+    await connectToDatabase();
     
     try {
       return await Symptom.find().sort({ description: 1 });

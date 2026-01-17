@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTokenFromRequest, getUserFromToken } from '@/lib/auth';
-import dbConnect from '@/lib/mongodb';
+import { connectToDatabase } from '@/lib/mongodb';
 import Consultation from '@/models/Consultation';
 import Vehicle from '@/models/Vehicle';
 import Fault from '@/models/Fault';
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    await dbConnect();
+    await connectToDatabase();
 
     // Get consultations with populated data
     const consultations = await Consultation.find({ user_id: user.userId })

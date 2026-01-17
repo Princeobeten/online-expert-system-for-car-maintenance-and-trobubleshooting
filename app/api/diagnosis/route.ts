@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTokenFromRequest, getUserFromToken } from '@/lib/auth';
 import { ExpertSystemEngine } from '@/lib/expertSystem';
-import dbConnect from '@/lib/mongodb';
+import { connectToDatabase } from '@/lib/mongodb';
 import Consultation from '@/models/Consultation';
 
 export async function POST(request: NextRequest) {
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    await dbConnect();
+    await connectToDatabase();
 
     const { symptoms, vehicleId } = await request.json();
 
