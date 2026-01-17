@@ -146,14 +146,14 @@ export default function Consultation() {
 
   return (
     <Layout>
-      <div className="px-4 py-6 sm:px-0 text-gray-600">
-        <div className="border-4 border-dashed border-gray-200 rounded-lg p-8">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">Car Consultation</h1>
+      <div className="px-2 sm:px-4 py-4 sm:py-6 text-gray-600">
+        <div className="border-4 border-dashed border-gray-200 rounded-lg p-4 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 space-y-4 sm:space-y-0">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Car Consultation</h1>
             {step > 1 && (
               <button
                 onClick={resetConsultation}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-medium"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md font-medium text-sm sm:text-base w-full sm:w-auto"
               >
                 Start New Consultation
               </button>
@@ -161,24 +161,24 @@ export default function Consultation() {
           </div>
 
           {/* Progress Indicator */}
-          <div className="mb-8">
-            <div className="flex items-center">
+          <div className="mb-6 sm:mb-8">
+            <div className="flex items-center justify-center">
               {[1, 2, 3].map((stepNum) => (
                 <div key={stepNum} className="flex items-center">
-                  <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                  <div className={`flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm ${
                     step >= stepNum ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
                   }`}>
                     {stepNum}
                   </div>
                   {stepNum < 3 && (
-                    <div className={`w-16 h-1 ${
+                    <div className={`w-8 sm:w-16 h-1 ${
                       step > stepNum ? 'bg-blue-600' : 'bg-gray-300'
                     }`} />
                   )}
                 </div>
               ))}
             </div>
-            <div className="flex justify-between mt-2 text-sm text-gray-600">
+            <div className="flex justify-between mt-2 text-xs sm:text-sm text-gray-600 px-2">
               <span>Select Vehicle</span>
               <span>Select Symptoms</span>
               <span>View Results</span>
@@ -188,35 +188,35 @@ export default function Consultation() {
           {/* Step 1: Vehicle Selection */}
           {step === 1 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Select Your Vehicle</h2>
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">Select Your Vehicle</h2>
               {vehicles.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {vehicles.map((vehicle) => (
                     <button
                       key={vehicle.vehicle_id}
                       onClick={() => handleVehicleSelect(vehicle.vehicle_id)}
-                      className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border-2 border-transparent hover:border-blue-500 text-left"
+                      className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-md transition-shadow border-2 border-transparent hover:border-blue-500 text-left"
                     >
                       <div className="flex items-center">
-                        <div className="text-3xl mr-3">🚗</div>
+                        <div className="text-2xl sm:text-3xl mr-3">🚗</div>
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900">
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900">
                             {vehicle.brand} {vehicle.vehicleModel}
                           </h3>
-                          <p className="text-gray-600">{vehicle.year}</p>
+                          <p className="text-sm sm:text-base text-gray-600">{vehicle.year}</p>
                         </div>
                       </div>
                     </button>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <div className="text-6xl mb-4">🚗</div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No vehicles found</h3>
-                  <p className="text-gray-600 mb-4">You need to add a vehicle before starting a consultation.</p>
+                <div className="text-center py-8 sm:py-12">
+                  <div className="text-4xl sm:text-6xl mb-4">🚗</div>
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No vehicles found</h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 px-4">You need to add a vehicle before starting a consultation.</p>
                   <a
                     href="/vehicles"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium inline-block"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 rounded-md font-medium inline-block text-sm sm:text-base"
                   >
                     Add Vehicle
                   </a>
@@ -228,20 +228,20 @@ export default function Consultation() {
           {/* Step 2: Symptom Selection */}
           {step === 2 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Select Symptoms</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">Select Symptoms</h2>
+              <p className="text-sm sm:text-base text-gray-600 mb-6 px-2">
                 Choose all symptoms that apply to your vehicle. The more accurate your selection, the better the diagnosis.
               </p>
               
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {Object.entries(symptoms).map(([category, categorySymptoms]) => (
-                  <div key={category} className="bg-white p-6 rounded-lg shadow">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">{category}</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div key={category} className="bg-white p-4 sm:p-6 rounded-lg shadow">
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">{category}</h3>
+                    <div className="grid grid-cols-1 gap-2 sm:gap-3">
                       {categorySymptoms.map((symptom) => (
                         <label
                           key={symptom.symptom_id}
-                          className="flex items-center space-x-3 cursor-pointer"
+                          className="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50"
                         >
                           <input
                             type="checkbox"
@@ -249,7 +249,7 @@ export default function Consultation() {
                             onChange={() => handleSymptomToggle(symptom.symptom_id)}
                             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                           />
-                          <span className="text-sm text-gray-700">{symptom.description}</span>
+                          <span className="text-sm sm:text-base text-gray-700">{symptom.description}</span>
                         </label>
                       ))}
                     </div>
@@ -257,17 +257,17 @@ export default function Consultation() {
                 ))}
               </div>
 
-              <div className="mt-6 flex justify-between">
+              <div className="mt-6 flex flex-col sm:flex-row justify-between space-y-3 sm:space-y-0 sm:space-x-4">
                 <button
                   onClick={() => setStep(1)}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md font-medium"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md font-medium text-sm sm:text-base order-2 sm:order-1"
                 >
                   Back
                 </button>
                 <button
                   onClick={handleDiagnosis}
                   disabled={diagnosing || selectedSymptoms.length === 0}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium disabled:opacity-50"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium disabled:opacity-50 text-sm sm:text-base order-1 sm:order-2"
                 >
                   {diagnosing ? 'Diagnosing...' : `Diagnose (${selectedSymptoms.length} symptoms)`}
                 </button>
@@ -278,38 +278,38 @@ export default function Consultation() {
           {/* Step 3: Results */}
           {step === 3 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Diagnosis Results</h2>
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">Diagnosis Results</h2>
               
               {diagnosis.length > 0 ? (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {diagnosis.map((result, index) => (
-                    <div key={index} className="bg-white p-6 rounded-lg shadow">
-                      <div className="flex justify-between items-start mb-4">
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900">
+                    <div key={index} className="bg-white p-4 sm:p-6 rounded-lg shadow">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 space-y-3 sm:space-y-0">
+                        <div className="flex-1">
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900">
                             {result.fault.fault_name}
                           </h3>
                           {result.fault.description && (
-                            <p className="text-gray-600 mt-1">{result.fault.description}</p>
+                            <p className="text-sm sm:text-base text-gray-600 mt-1">{result.fault.description}</p>
                           )}
                         </div>
-                        <div className="flex flex-col items-end space-y-2">
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getSeverityColor(result.fault.severity)}`}>
+                        <div className="flex flex-row sm:flex-col items-start sm:items-end space-x-4 sm:space-x-0 sm:space-y-2">
+                          <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${getSeverityColor(result.fault.severity)}`}>
                             {result.fault.severity} Severity
                           </span>
-                          <span className="text-sm text-gray-600">
+                          <span className="text-xs sm:text-sm text-gray-600">
                             {result.confidence}% Confidence
                           </span>
                         </div>
                       </div>
 
                       <div className="border-t pt-4">
-                        <h4 className="font-medium text-gray-900 mb-3">Recommended Solutions:</h4>
+                        <h4 className="font-medium text-gray-900 mb-3 text-sm sm:text-base">Recommended Solutions:</h4>
                         <div className="space-y-3">
                           {result.solutions.map((solution, sIndex) => (
-                            <div key={sIndex} className="bg-gray-50 p-4 rounded-md">
-                              <p className="text-gray-800 mb-2">{solution.repair_action}</p>
-                              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                            <div key={sIndex} className="bg-gray-50 p-3 sm:p-4 rounded-md">
+                              <p className="text-sm sm:text-base text-gray-800 mb-2">{solution.repair_action}</p>
+                              <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                                 {solution.estimated_cost && (
                                   <span>💰 Est. Cost: ${solution.estimated_cost}</span>
                                 )}
@@ -322,8 +322,8 @@ export default function Consultation() {
                               </div>
                               {solution.tools_required && solution.tools_required.length > 0 && (
                                 <div className="mt-2">
-                                  <span className="text-sm text-gray-600">Tools needed: </span>
-                                  <span className="text-sm text-gray-800">
+                                  <span className="text-xs sm:text-sm text-gray-600">Tools needed: </span>
+                                  <span className="text-xs sm:text-sm text-gray-800">
                                     {solution.tools_required.join(', ')}
                                   </span>
                                 </div>
@@ -336,32 +336,32 @@ export default function Consultation() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <div className="text-6xl mb-4">🤔</div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No Diagnosis Found</h3>
-                  <p className="text-gray-600 mb-4">
+                <div className="text-center py-8 sm:py-12">
+                  <div className="text-4xl sm:text-6xl mb-4">🤔</div>
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No Diagnosis Found</h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 px-4">
                     We couldn't find a matching diagnosis for the selected symptoms. 
                     Try selecting different or additional symptoms.
                   </p>
                   <button
                     onClick={() => setStep(2)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 rounded-md font-medium text-sm sm:text-base"
                   >
                     Try Different Symptoms
                   </button>
                 </div>
               )}
 
-              <div className="mt-6 flex justify-between">
+              <div className="mt-6 flex flex-col sm:flex-row justify-between space-y-3 sm:space-y-0 sm:space-x-4">
                 <button
                   onClick={() => setStep(2)}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md font-medium"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md font-medium text-sm sm:text-base order-2 sm:order-1"
                 >
                   Back to Symptoms
                 </button>
                 <button
                   onClick={resetConsultation}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium text-sm sm:text-base order-1 sm:order-2"
                 >
                   New Consultation
                 </button>

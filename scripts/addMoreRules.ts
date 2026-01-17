@@ -173,7 +173,10 @@ async function addMoreRules() {
     for (const faultData of additionalFaults) {
       const exists = existingFaults.find(f => f.fault_name === faultData.fault_name);
       if (!exists) {
-        newFaults.push(faultData);
+        newFaults.push({
+          ...faultData,
+          fault_id: new mongoose.Types.ObjectId().toString()
+        });
       }
     }
 
@@ -196,7 +199,8 @@ async function addMoreRules() {
         if (!exists) {
           newSolutions.push({
             ...solutionData,
-            fault_id: fault.fault_id
+            fault_id: fault.fault_id,
+            solution_id: new mongoose.Types.ObjectId().toString()
           });
         }
       }
@@ -329,6 +333,7 @@ async function addMoreRules() {
 
           if (!exists) {
             rulesToAdd.push({
+              rule_id: new mongoose.Types.ObjectId().toString(),
               fault_id: fault.fault_id,
               symptoms: symptomIds,
               condition: ruleData.condition,

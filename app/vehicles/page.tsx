@@ -97,90 +97,92 @@ export default function Vehicles() {
 
   return (
     <Layout>
-      <div className="px-4 py-6 sm:px-0 text-gray-600">
-        <div className="border-4 border-dashed border-gray-200 rounded-lg p-8">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">My Vehicles</h1>
+      <div className="px-2 sm:px-4 py-4 sm:py-6 text-gray-600">
+        <div className="border-4 border-dashed border-gray-200 rounded-lg p-4 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 space-y-4 sm:space-y-0">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Vehicles</h1>
             <button
               onClick={() => setShowForm(!showForm)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium text-sm sm:text-base w-full sm:w-auto"
             >
               {showForm ? 'Cancel' : 'Add Vehicle'}
             </button>
           </div>
 
           {showForm && (
-            <div className="bg-white p-6 rounded-lg shadow mb-6">
-              <h2 className="text-xl font-semibold mb-4">Add New Vehicle</h2>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow mb-6">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">Add New Vehicle</h2>
               {error && (
-                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
                   {error}
                 </div>
               )}
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="brand" className="block text-sm font-medium text-gray-700">
-                    Brand *
-                  </label>
-                  <input
-                    type="text"
-                    id="brand"
-                    name="brand"
-                    required
-                    value={formData.brand}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="brand" className="block text-sm font-medium text-gray-700 mb-1">
+                      Brand *
+                    </label>
+                    <input
+                      type="text"
+                      id="brand"
+                      name="brand"
+                      required
+                      value={formData.brand}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="model" className="block text-sm font-medium text-gray-700 mb-1">
+                      Model *
+                    </label>
+                    <input
+                      type="text"
+                      id="model"
+                      name="model"
+                      required
+                      value={formData.model}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="year" className="block text-sm font-medium text-gray-700 mb-1">
+                      Year *
+                    </label>
+                    <input
+                      type="number"
+                      id="year"
+                      name="year"
+                      required
+                      min="1900"
+                      max={new Date().getFullYear() + 1}
+                      value={formData.year}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="engine_type" className="block text-sm font-medium text-gray-700 mb-1">
+                      Engine Type
+                    </label>
+                    <input
+                      type="text"
+                      id="engine_type"
+                      name="engine_type"
+                      value={formData.engine_type}
+                      onChange={handleChange}
+                      placeholder="e.g., V6, 2.0L Turbo"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label htmlFor="model" className="block text-sm font-medium text-gray-700">
-                    Model *
-                  </label>
-                  <input
-                    type="text"
-                    id="model"
-                    name="model"
-                    required
-                    value={formData.model}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="year" className="block text-sm font-medium text-gray-700">
-                    Year *
-                  </label>
-                  <input
-                    type="number"
-                    id="year"
-                    name="year"
-                    required
-                    min="1900"
-                    max={new Date().getFullYear() + 1}
-                    value={formData.year}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="engine_type" className="block text-sm font-medium text-gray-700">
-                    Engine Type
-                  </label>
-                  <input
-                    type="text"
-                    id="engine_type"
-                    name="engine_type"
-                    value={formData.engine_type}
-                    onChange={handleChange}
-                    placeholder="e.g., V6, 2.0L Turbo"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div className="md:col-span-2">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium disabled:opacity-50"
+                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium disabled:opacity-50 text-sm sm:text-base"
                   >
                     {submitting ? 'Adding...' : 'Add Vehicle'}
                   </button>
@@ -190,20 +192,20 @@ export default function Vehicles() {
           )}
 
           {vehicles.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {vehicles.map((vehicle) => (
-                <div key={vehicle.vehicle_id} className="bg-white p-6 rounded-lg shadow">
+                <div key={vehicle.vehicle_id} className="bg-white p-4 sm:p-6 rounded-lg shadow">
                   <div className="flex items-center mb-4">
-                    <div className="text-3xl mr-3">🚗</div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">
+                    <div className="text-2xl sm:text-3xl mr-3">🚗</div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                         {vehicle.brand} {vehicle.vehicleModel}
                       </h3>
-                      <p className="text-gray-600">{vehicle.year}</p>
+                      <p className="text-sm sm:text-base text-gray-600">{vehicle.year}</p>
                     </div>
                   </div>
                   {vehicle.engine_type && (
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-xs sm:text-sm text-gray-600 mb-2">
                       Engine: {vehicle.engine_type}
                     </p>
                   )}
@@ -214,13 +216,13 @@ export default function Vehicles() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🚗</div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No vehicles yet</h3>
-              <p className="text-gray-600 mb-4">Add your first vehicle to get started with consultations.</p>
+            <div className="text-center py-8 sm:py-12">
+              <div className="text-4xl sm:text-6xl mb-4">🚗</div>
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No vehicles yet</h3>
+              <p className="text-sm sm:text-base text-gray-600 mb-4 px-4">Add your first vehicle to get started with consultations.</p>
               <button
                 onClick={() => setShowForm(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 rounded-md font-medium text-sm sm:text-base"
               >
                 Add Your First Vehicle
               </button>
